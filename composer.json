@@ -1,0 +1,18 @@
+{
+  "name": "usabilitydynamics/wp-gravityforms",
+  "description": "Fork of GravityForms repo so we can use it in our composer architecture.",
+  "type": "wordpress-plugin",
+  "version": "develop",
+  "minimum-stability": "dev",
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "http://repository.usabilitydynamics.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.3",
+    "composer/installers": "~1.0",
+    "usabilitydynamics/lib-installer": "master"
+  }
+}
