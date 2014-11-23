@@ -48,6 +48,33 @@ class GFAPI {
     }
 
     /**
+     * Returns all the form objects
+     *
+     * @since  1.8.11.5
+     * @access public
+     * @static
+     *
+     * @param bool $active
+     * @param bool $trash
+     *
+     * @return mixed The array of Forms
+     */
+    public static function get_forms( $active = true, $trash = false ) {
+
+        $form_ids = GFFormsModel::get_form_ids( $active, $trash );
+        if ( empty( $form_ids ) ) {
+            return array();
+        }
+
+        $forms = array();
+        foreach ( $form_ids as $form_id ) {
+            $forms[] = GFAPI::get_form( $form_id );
+        }
+
+        return $forms;
+    }
+
+    /**
      * Deletes the forms with the given Form IDs
      *
      * @since  1.8
@@ -480,8 +507,11 @@ class GFAPI {
     public static function update_entry($entry, $entry_id = null) {
         global $wpdb;
 
-        if (empty($entry_id))
-            $entry_id = $entry["id"];
+        if (empty($entry_id)) {
+            $entry_id = $entry['id'];
+        } else {
+            $entry["id"] = $entry_id;
+        }
 
         if (empty($entry_id))
             return new WP_Error("missing_entry_id", __("Missing entry id", "gravityforms"));
